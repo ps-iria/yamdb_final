@@ -57,7 +57,6 @@ jobs:
           script: |
             sudo docker pull psiria/yamdb-final
             sudo docker stop $(sudo docker ps -a -q)
-#            sudo docker run --rm -d -p 5000:5000 psiria/yamdb-final
             sudo docker-compose up --build -d
             
   send_message:
