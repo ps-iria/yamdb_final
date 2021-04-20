@@ -50,10 +50,10 @@ jobs:
       - name: copy docker-compose and nginx
         uses: appleboy/scp-action@master
         env:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USER }}
+          KEY: ${{ secrets.SSH_KEY }}
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
         with:
           source: "docker-compose.yaml, nginx/default.conf"
           target: "home/drpsych/yamdb-final"
