@@ -9,7 +9,7 @@ services:
       - ./.env
 
   web:
-    image: yamdb-final
+    image: psiria/yamdb-final:latest
     restart: always
     volumes:
       - static_value:/code/static/
