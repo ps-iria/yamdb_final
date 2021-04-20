@@ -9,7 +9,7 @@ services:
       - ./.env
 
   web:
-    build: .
+    image: yamdb-final
     restart: always
     volumes:
       - static_value:/code/static/
