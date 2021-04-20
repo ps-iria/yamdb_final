@@ -12,7 +12,7 @@ services:
     image: psiria/yamdb-final:latest
     restart: always
     volumes:
-      - static_value:/code/static/
+      - static_value:/static/
     depends_on:
       - db
     env_file:
