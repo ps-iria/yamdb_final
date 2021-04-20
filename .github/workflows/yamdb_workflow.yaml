@@ -54,8 +54,9 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
+          port: 22
           source: "docker-compose.yaml, nginx/default.conf"
-          target: "yamdb-final"
+          target: "home/drpsych/yamdb-final"
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
