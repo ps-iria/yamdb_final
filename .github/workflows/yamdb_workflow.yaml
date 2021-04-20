@@ -30,59 +30,34 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-
       - name: Login to Docker
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: psiria/yamdb-final:latest
-        
+
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
     steps:
-      - uses: actions/checkout@master
-
-      - name: Copy file into remote server with scp
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-          rm: true
-          source: "./nginx/*,./docker-compose.yaml"
-          target: "./yamdb_deploy"
-
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
-        env:
-          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          envs: ENV_FILE
           script: |
-            cd yamdb_deploy/
-            echo $ENV_FILE |tr ' ' '\n' > .env
-            sudo docker pull psiria/yamdb-final:latest
-            if [ -n "$(sudo docker ps -a -q)" ]; then
-                sudo docker stop $(sudo docker ps -a -q)
-            fi
-            sudo docker-compose up -d
-            sudo docker-compose exec -T web python manage.py collectstatic --no-input
-            sudo docker image prune -f
+            sudo docker pull psiria/yamdb-final
+            sudo docker stop $(sudo docker ps -a -q)
+            sudo docker run --rm -d -p 5000:5000 psiria/yamdb-final
             
   send_message:
     runs-on: ubuntu-latest
