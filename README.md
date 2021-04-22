@@ -58,3 +58,7 @@ sudo docker-compose exec web python manage.py loaddata fixtures.json
 * [Docker](https://www.docker.com/)
 * [Gunicorn](https://gunicorn.org/)
 * [Nginx](https://nginx.org/)
+
+## Ссылки
+
+Проект доступен по следующей ссылке <http://iria.tk/>
