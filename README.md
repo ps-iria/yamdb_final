@@ -61,4 +61,4 @@ sudo docker-compose exec web python manage.py loaddata fixtures.json
 
 ## Ссылки
 
-Проект доступен по следующей ссылке <http://iria.tk/>
+Проект доступен по следующей ссылке <http://iria.tk/api/v1/>
